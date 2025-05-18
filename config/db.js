@@ -3,11 +3,9 @@ const mongoose = require("mongoose");
 const connectDB = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
+      // Optional: Keep ssl if you're connecting with strict TLS
       ssl: true,
-      tlsAllowInvalidCertificates: false, // ← ✅ Use this only
-      serverApi: "1",
+      tlsAllowInvalidCertificates: false, // Only if needed
     });
     console.log("✅ MongoDB connected successfully");
   } catch (err) {

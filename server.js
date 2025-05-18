@@ -2,12 +2,19 @@ require("dotenv").config();
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
-const connectDB = require("./config/db"); // ✅ New line
+const connectDB = require("./config/db");
 
 const app = express();
 
-// Middleware
-app.use(cors({ origin: true, credentials: true }));
+// ✅ CORS Setup: Allow localhost + GitHub Pages
+app.use(cors({
+  origin: [
+    'http://localhost:3000',
+    'https://yaswanthkumar-piradhi.github.io'
+  ],
+  credentials: true
+}));
+
 app.use(express.json());
 app.use(cookieParser());
 
