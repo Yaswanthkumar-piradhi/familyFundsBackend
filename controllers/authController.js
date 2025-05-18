@@ -16,7 +16,11 @@ exports.login = async (req, res) => {
     return res.status(401).json({ message: 'Invalid credentials' });
 
   const token = jwt.sign({ id: user._id, isAdmin: user.isAdmin }, process.env.JWT_SECRET);
-  res.cookie('token', token).json({ message: 'Logged in', user });
+  res.cookie('token', token, {
+  httpOnly: true,
+  secure: true, // important for HTTPS
+  sameSite: 'None' // must be 'None' for cross-origin cookies
+}).json({ message: 'Logged in', user });
 };
 
 exports.logout = (req, res) => {
